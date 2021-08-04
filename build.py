@@ -47,6 +47,7 @@ def go_build_android(binary_name, version, o, a, p):
     triple = p[0]
     subprocess.check_call("CC=$ANDROID_NDK_ROOT/bin/" + triple + "/bin/clang GOOS=" + o + " GOARCH=" + a + " CGO_ENABLED=1" + " go build -ldflags \"-s -w " +
                                   "-X main.version=" + version + "\" -o " + binary_name + " main/main.go", shell=True)
+    subprocess.check_call("CC=$ANDROID_NDK_ROOT/bin/" + triple + "/bin/strip"  + binary_name , shell=True)
 
 def go_build_zip(arches, builder):
     subprocess.check_call("GOOS=windows go get -v github.com/shawn1m/overture/main", shell=True)
